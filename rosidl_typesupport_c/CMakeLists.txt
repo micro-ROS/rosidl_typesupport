@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.5)
 
 project(rosidl_typesupport_c)
 
+option(ROSIDL_TYPESUPPORT_SINGLE_TYPESUPPORT "Enable single typesupport" ON)
+
 # Default to C11
 if(NOT CMAKE_C_STANDARD)
   set(CMAKE_C_STANDARD 11)
@@ -36,6 +38,10 @@ if(WIN32)
   target_compile_definitions(${PROJECT_NAME}
     PRIVATE "ROSIDL_TYPESUPPORT_C_BUILDING_DLL")
 endif()
+target_compile_definitions(${PROJECT_NAME}
+  PRIVATE
+    $<$<BOOL:${ROSIDL_TYPESUPPORT_SINGLE_TYPESUPPORT}>:ROSIDL_TYPESUPPORT_SINGLE_TYPESUPPORT>
+  )
 target_include_directories(${PROJECT_NAME} PUBLIC
   "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
   "$<INSTALL_INTERFACE:include>")

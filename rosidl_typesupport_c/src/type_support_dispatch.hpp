@@ -43,6 +43,7 @@ get_typesupport_handle_function(
     return handle;
   }
 
+#ifndef ROSIDL_TYPESUPPORT_SINGLE_TYPESUPPORT
   if (handle->typesupport_identifier == rosidl_typesupport_c__typesupport_identifier) {
     const type_support_map_t * map = \
       static_cast<const type_support_map_t *>(handle->data);
@@ -90,6 +91,8 @@ get_typesupport_handle_function(
       return ts;
     }
   }
+#endif // ROSIDL_TYPESUPPORT_SINGLE_TYPESUPPORT
+
   return nullptr;
 }
 
