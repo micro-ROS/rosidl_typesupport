@@ -18,12 +18,16 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 endif()
 
 find_package(ament_cmake_ros REQUIRED)
-find_package(rcpputils REQUIRED)
 find_package(rosidl_runtime_c REQUIRED)
+if(NOT ROSIDL_TYPESUPPORT_SINGLE_TYPESUPPORT)
+  find_package(rcpputils REQUIRED)
+endif()
 
-ament_export_dependencies(rcpputils)
 ament_export_dependencies(rosidl_runtime_c)
 ament_export_dependencies(rosidl_typesupport_interface)
+if(NOT ROSIDL_TYPESUPPORT_SINGLE_TYPESUPPORT)
+  ament_export_dependencies(rcpputils)
+endif()
 
 ament_export_include_directories(include)
 
@@ -47,9 +51,13 @@ target_include_directories(${PROJECT_NAME} PUBLIC
   "$<INSTALL_INTERFACE:include>")
 
 ament_target_dependencies(${PROJECT_NAME}
-  "rcpputils"
   "rosidl_runtime_c"
 )
+if(NOT ROSIDL_TYPESUPPORT_SINGLE_TYPESUPPORT)
+  ament_target_dependencies(${PROJECT_NAME}
+    "rcpputils"
+  )
+endif()
 ament_export_libraries(${PROJECT_NAME})
 ament_export_targets(${PROJECT_NAME})
 

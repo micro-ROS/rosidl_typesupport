@@ -24,8 +24,10 @@
 #include <list>
 #include <string>
 
+#ifndef ROSIDL_TYPESUPPORT_SINGLE_TYPESUPPORT
 #include "rcpputils/find_library.hpp"
 #include "rcpputils/shared_library.hpp"
+#endif // ROSIDL_TYPESUPPORT_SINGLE_TYPESUPPORT
 #include "rosidl_typesupport_c/identifier.h"
 #include "rosidl_typesupport_c/type_support_map.h"
 
