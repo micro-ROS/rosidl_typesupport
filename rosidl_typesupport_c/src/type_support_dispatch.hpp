@@ -24,8 +24,10 @@
 #include <list>
 #include <string>
 
+#ifndef ROSIDL_TYPESUPPORT_SINGLE_TYPESUPPORT
 #include "rcpputils/find_library.hpp"
 #include "rcpputils/shared_library.hpp"
+#endif // ROSIDL_TYPESUPPORT_SINGLE_TYPESUPPORT
 #include "rcutils/error_handling.h"
 #include "rosidl_typesupport_c/identifier.h"
 #include "rosidl_typesupport_c/type_support_map.h"
@@ -44,6 +46,7 @@ get_typesupport_handle_function(
     return handle;
   }
 
+#ifndef ROSIDL_TYPESUPPORT_SINGLE_TYPESUPPORT
   if (handle->typesupport_identifier == rosidl_typesupport_c__typesupport_identifier) {
     const type_support_map_t * map = \
       static_cast<const type_support_map_t *>(handle->data);
@@ -116,6 +119,8 @@ get_typesupport_handle_function(
   RCUTILS_SET_ERROR_MSG_WITH_FORMAT_STRING(
     "Handle's typesupport identifier (%s) is not supported by this library\n",
     handle->typesupport_identifier);
+#endif // ROSIDL_TYPESUPPORT_SINGLE_TYPESUPPORT
+
   return nullptr;
 }
 
