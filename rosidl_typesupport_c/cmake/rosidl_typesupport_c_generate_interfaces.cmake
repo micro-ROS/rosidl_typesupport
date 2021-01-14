@@ -155,7 +155,9 @@ add_dependencies(
 
 if(NOT rosidl_generate_interfaces_SKIP_INSTALL)
   install(
-    TARGETS ${rosidl_generate_interfaces_TARGET}${_target_suffix}
+    TARGETS
+      ${rosidl_generate_interfaces_TARGET}${_target_suffix}
+      ${rosidl_generate_interfaces_TARGET}__${typesupports}
     EXPORT ${rosidl_generate_interfaces_TARGET}${_target_suffix}
     ARCHIVE DESTINATION lib
     LIBRARY DESTINATION lib
