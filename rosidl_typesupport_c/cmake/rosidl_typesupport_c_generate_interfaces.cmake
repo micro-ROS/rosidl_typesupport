@@ -111,8 +111,10 @@ if(NOT typesupports MATCHES ";")
     ${rosidl_generate_interfaces_TARGET}__${typesupports})
 else()
   if("${rosidl_typesupport_c_LIBRARY_TYPE}" STREQUAL "STATIC")
-    message(FATAL_ERROR "Multiple typesupports [${typesupports}] but static "
-      "linking was requested")
+  target_compile_definitions(${rosidl_generate_interfaces_TARGET}${_target_suffix}
+    PRIVATE
+    ROSIDL_TYPESUPPORT_STATIC_TYPESUPPORT
+  )
   endif()
 endif()
 
@@ -135,6 +137,8 @@ endforeach()
 add_dependencies(
   ${rosidl_generate_interfaces_TARGET}
   ${rosidl_generate_interfaces_TARGET}${_target_suffix}
+  ${rosidl_generate_interfaces_TARGET}__rosidl_generator_c
+  ${rosidl_generate_interfaces_TARGET}__rosidl_typesupport_c
 )
 
 if(NOT rosidl_generate_interfaces_SKIP_INSTALL)
